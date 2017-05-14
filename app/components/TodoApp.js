@@ -2,6 +2,7 @@
 import React from 'react'
 import TodoList from 'TodoList'
 import AddTodo from 'AddTodo'
+import TodoSearch from 'TodoSearch'
 
 export default class Main extends React.Component {
   constructor (props) {
@@ -29,6 +30,10 @@ export default class Main extends React.Component {
     }
   }
 
+  handleSearch () {
+
+  }
+
   handleAddTodo (newTodo) {
     let todos = this.state.todos
     todos.push({
@@ -44,6 +49,7 @@ export default class Main extends React.Component {
     const {todos} = this.state
     return (
       <div>
+        <TodoSearch onHandleSearch={this.handleSearch} />
         <TodoList todos={todos} />
         <AddTodo onAddTodo={this.handleAddTodo} />
       </div>

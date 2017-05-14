@@ -1,6 +1,7 @@
 //  container component
 import React from 'react'
 import TodoList from 'TodoList'
+import AddTodo from 'AddTodo'
 
 export default class Main extends React.Component {
   constructor (props) {
@@ -26,10 +27,18 @@ export default class Main extends React.Component {
       ]
     }
   }
+
+  handleAddTodo (newTodo) {
+    alert(newTodo)
+  }
+
   render () {
     const {todos} = this.state
     return (
+      <div>
         <TodoList todos={todos} />
+        <AddTodo onAddTodo={this.handleAddTodo} />
+      </div>
     )
   }
 }

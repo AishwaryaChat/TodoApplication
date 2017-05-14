@@ -28072,10 +28072,10 @@ var TodoSearch = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
+          _react2.default.createElement('input', { type: 'checkbox', ref: 'showCompleted', onChange: this.handleSearch }),
           _react2.default.createElement(
             'label',
             null,
-            _react2.default.createElement('input', { type: 'checkbox', ref: 'showCompleted', onChange: this.handleSearch }),
             'Show Completed Todos'
           )
         )

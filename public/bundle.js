@@ -8325,6 +8325,7 @@ var Main = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
+    _this.handleAddTodo = _this.handleAddTodo.bind(_this);
     _this.state = {
       todos: [{
         id: 1,
@@ -8337,7 +8338,7 @@ var Main = function (_React$Component) {
         text: 'Todo 3'
       }, {
         id: 4,
-        text: 'Todo 3'
+        text: 'Todo 4'
       }]
     };
     return _this;
@@ -8346,7 +8347,12 @@ var Main = function (_React$Component) {
   _createClass(Main, [{
     key: 'handleAddTodo',
     value: function handleAddTodo(newTodo) {
-      alert(newTodo);
+      var todos = this.state.todos;
+      todos.push({
+        id: todos.length + 1,
+        text: newTodo
+      });
+      this.setState(todos);
     }
   }, {
     key: 'render',

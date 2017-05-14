@@ -6,6 +6,7 @@ import AddTodo from 'AddTodo'
 export default class Main extends React.Component {
   constructor (props) {
     super(props)
+    this.handleAddTodo = this.handleAddTodo.bind(this)
     this.state = {
       todos: [
         {
@@ -22,14 +23,21 @@ export default class Main extends React.Component {
         },
         {
           id: 4,
-          text: 'Todo 3'
+          text: 'Todo 4'
         }
       ]
     }
   }
 
   handleAddTodo (newTodo) {
-    alert(newTodo)
+    let todos = this.state.todos
+    todos.push({
+      id: todos.length + 1,
+      text: newTodo
+    })
+    this.setState(
+      todos
+    )
   }
 
   render () {

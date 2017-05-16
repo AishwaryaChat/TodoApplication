@@ -1,9 +1,11 @@
 //  container component
 import React from 'react'
+import uuid from 'node-uuid'
+
 import TodoList from 'TodoList'
 import AddTodo from 'AddTodo'
 import TodoSearch from 'TodoSearch'
-import uuid from 'node-uuid'
+import TodoAPI from 'TodoAPI'
 
 export default class Main extends React.Component {
   constructor (props) {
@@ -13,29 +15,12 @@ export default class Main extends React.Component {
     this.state = {
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Todo 1',
-          completed: false
-        },
-        {
-          id: uuid(),
-          text: 'Todo 2',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Todo 3',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Todo 4',
-          completed: false
-        }
-      ]
+      todos: TodoAPI.getTodos()
     }
+  }
+
+  componentDidUpdate () { // this gets fired after either the props or state for the components changes
+    TodoAPI.setTodos(this.state.todos)
   }
 
   handleSearch (showCompleted, searchText) {

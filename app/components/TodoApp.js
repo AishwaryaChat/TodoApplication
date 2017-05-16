@@ -12,6 +12,7 @@ export default class Main extends React.Component {
     super(props)
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
     this.state = {
       showCompleted: false,
       searchText: '',
@@ -56,11 +57,12 @@ export default class Main extends React.Component {
   }
 
   render () {
-    const {todos} = this.state
+    const {todos, showCompleted, searchText} = this.state
+    const filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch} />
-        <TodoList todos={todos} onToggle={this.handleToggle} />
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle} />
         <AddTodo onAddTodo={this.handleAddTodo} />
       </div>
     )

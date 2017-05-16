@@ -17544,6 +17544,7 @@ var Main = function (_React$Component) {
 
     _this.handleAddTodo = _this.handleAddTodo.bind(_this);
     _this.handleToggle = _this.handleToggle.bind(_this);
+    _this.handleSearch = _this.handleSearch.bind(_this);
     _this.state = {
       showCompleted: false,
       searchText: '',
@@ -17593,13 +17594,17 @@ var Main = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var todos = this.state.todos;
+      var _state = this.state,
+          todos = _state.todos,
+          showCompleted = _state.showCompleted,
+          searchText = _state.searchText;
 
+      var filteredTodos = _TodoAPI2.default.filterTodos(todos, showCompleted, searchText);
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
-        _react2.default.createElement(_TodoList2.default, { todos: todos, onToggle: this.handleToggle }),
+        _react2.default.createElement(_TodoList2.default, { todos: filteredTodos, onToggle: this.handleToggle }),
         _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
       );
     }
@@ -25609,6 +25614,33 @@ module.exports = {
     } catch (e) {}
 
     return Array.isArray(todos) ? todos : [];
+  },
+
+  filterTodos: function filterTodos(todos, showCompleted, searchText) {
+    var filteredTodos = todos;
+
+    // filter by showCompleted
+    filteredTodos = filteredTodos.filter(function (todo) {
+      return !todo.completed || showCompleted;
+    });
+
+    // filter by searchText
+    filteredTodos = filteredTodos.filter(function (todo) {
+      var text = todo.text.toLowerCase();
+      return searchText.length === 0 || text.indexOf(searchText) > -1;
+    });
+
+    // sort todos with non-complete first
+    filteredTodos.sort(function (a, b) {
+      if (!a.completed && b.completed) {
+        return -1;
+      } else if (a.completed && !b.completed) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return filteredTodos;
   }
 };
 
@@ -25864,7 +25896,7 @@ var TodoSearch = function (_React$Component) {
       var showCompleted = this.refs.showCompleted.checked;
       var searchText = this.refs.searchText.value;
 
-      this.props.handleSearch(showCompleted, searchText);
+      this.props.onSearch(showCompleted, searchText);
     }
   }, {
     key: 'render',
@@ -25875,16 +25907,16 @@ var TodoSearch = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement('input', { type: 'text', ref: 'searchText', placeholder: 'Seach Todo', onChange: this.onSearch })
+          _react2.default.createElement('input', { type: 'text', ref: 'searchText', placeholder: 'Seach Todo', onChange: this.onSearch.bind(this) })
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement('input', { type: 'checkbox', ref: 'showCompleted', onChange: this.onSearch }),
+          _react2.default.createElement('input', { type: 'checkbox', ref: 'showCompleted', onChange: this.onSearch.bind(this) }),
           _react2.default.createElement(
             'label',
             null,
-            'Show Todos'
+            'Show Completed Todos'
           )
         )
       );

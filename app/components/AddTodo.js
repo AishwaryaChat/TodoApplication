@@ -1,14 +1,18 @@
 import React from 'react'
-import TodoApp from 'TodoApp'
+const {connect} = require('react-redux')
 
-export default class AddTodo extends React.Component {
+import TodoApp from 'TodoApp'
+const actions = require('actions')
+
+class AddTodo extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault()
     const text = this.refs.newTodo.value
+    const {dispatch} = this.props
     if (text.length > 0) {
       this.refs.newTodo.value = ''
-      this.props.onAddTodo(text)
+      dispatch(actions.addTodo(text))
     } else {
       this.refs.newTodo.focus() // again will take the corsor in the text box
     }
@@ -25,3 +29,5 @@ export default class AddTodo extends React.Component {
     )
   }
 }
+
+export default connect()(AddTodo)

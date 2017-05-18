@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 const {Router, Route, IndexRoute, hashHistory} = require('react-router')
+const {Provider} = require('react-redux')
 
 import TodoApp from 'TodoApp'
 const actions = require('actions')
@@ -12,11 +13,11 @@ store.subscribe(() => {
 
 store.dispatch(actions.addTodo('Clean the cupboard'))
 store.dispatch(actions.setSearchText('clean'))
-store.dispatch(actions.toggleShowCompleted())
+store.dispatch(actions.addTodo('Clean the bathroom'))
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path='/' component={TodoApp}>
-    </Route>
-  </Router>, document.getElementById('app')
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>,
+  document.getElementById('app')
 )

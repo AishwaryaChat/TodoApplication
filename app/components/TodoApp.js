@@ -12,7 +12,6 @@ export default class Main extends React.Component {
   constructor (props) {
     super(props)
     this.handleAddTodo = this.handleAddTodo.bind(this)
-    this.handleToggle = this.handleToggle.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.state = {
       showCompleted: false,
@@ -47,26 +46,13 @@ export default class Main extends React.Component {
     })
   }
 
-  handleToggle (id) {
-    let updatedTodos = this.state.todos.map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-        todo.completedAt = todo.completed ? moment().unix() : undefined
-      }
-      return todo
-    })
-    this.setState({
-      todos: updatedTodos
-    })
-  }
-
   render () {
     const {todos, showCompleted, searchText} = this.state
     const filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch} />
-        <TodoList todos={filteredTodos} onToggle={this.handleToggle} />
+        <TodoList />
         <AddTodo onAddTodo={this.handleAddTodo} />
       </div>
     )

@@ -12,7 +12,8 @@ module.exports = {
       './app/api'
     ],
     alias: {
-      Main: 'app/components/Main.js'
+      Main: 'app/components/Main.js',
+      actions: 'app/actions/actions.js'
     },
     extensions: ['*', '.js', '.jsx']
   },

@@ -14,7 +14,8 @@ module.exports = {
     alias: {
       Main: 'app/components/Main.js',
       actions: 'app/actions/actions.js',
-      reducers: 'app/reducers/reducers.js'
+      reducers: 'app/reducers/reducers.js',
+      configureStore: 'app/store/configureStore.js'
     },
     extensions: ['*', '.js', '.jsx']
   },

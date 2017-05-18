@@ -23,7 +23,7 @@ export let showCompletedReducer = (state = false, action) => {
 
 // addTodo reducer
 export let addTodoReducer = (state = [], action) => {
-  switch ('action.type') {
+  switch (action.type) {
     case 'ADD_TODO':
       return [
         ...state,

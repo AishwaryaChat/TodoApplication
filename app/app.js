@@ -11,10 +11,6 @@ store.subscribe(() => {
   console.log('New store', store.getState())
 })
 
-store.dispatch(actions.addTodo('Clean the cupboard'))
-store.dispatch(actions.setSearchText('clean'))
-store.dispatch(actions.addTodo('Clean the bathroom'))
-
 ReactDOM.render(
   <Provider store={store}>
     <TodoApp />

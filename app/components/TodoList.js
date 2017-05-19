@@ -1,6 +1,8 @@
 import React from 'react'
-import Todo from 'Todo'
 import {connect} from 'react-redux'
+
+import Todo from 'Todo'
+const TodoAPI = require('TodoAPI')
 
 class TodoList extends React.Component {
 
@@ -10,10 +12,9 @@ class TodoList extends React.Component {
   }
 
   renderTodos () {
-    const {todos} = this.props
+    const {todos, showCompleted, searchText} = this.props
 
-    return todos.map((todo) => {
-      console.log(this.props)
+    return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
       return (
         <Todo key={todo.id} {...todo} />
       )
@@ -28,9 +29,5 @@ class TodoList extends React.Component {
 }
 
 module.exports = connect(
-  (state) => {
-    return {
-      todos: state.todos
-    }
-  }
+  (state) => state
 )(TodoList)
